@@ -1,0 +1,21 @@
+defaults: &defaults
+  url: 'https://mandrillapp.com/api/1.0/messages/send.json'
+  api_key: '9s8ZIsgOlCbod-bIi5WcRQ'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+ci:
+  <<: *defaults
+
+beta:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults

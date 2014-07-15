@@ -1,0 +1,21 @@
+defaults: &defaults
+  url: 'https://api:key-3ax6xnjp29jd6fds4gc373sgvjxteol0@api.mailgun.net/v2/samples.mailgun.org/messages'
+  api_key: '5bv350f-833tmy142hd2dxha1saxpht9'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+ci:
+  <<: *defaults
+
+beta:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
