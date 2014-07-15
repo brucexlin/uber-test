@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
 gem 'bundler', '>= 1.5.1'
 gem 'rails', '3.2.13'
@@ -6,6 +7,7 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'pg'
 
 gem 'multi_json'
 gem 'rest-client'
