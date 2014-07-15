@@ -18,12 +18,8 @@ This is your test content from Uber email service:
   end
 
   def deliver
-    unless send_via_mailgun == 200
-      unless send_via_mandrill == 200
-        return 500
-      end
-    end
-    return 200
+    return 200 if send_via_mailgun || send_via_mandrill
+    return 500
   end
 
   def send_via_mailgun
@@ -34,10 +30,10 @@ This is your test content from Uber email service:
         to: @to,
         subject: @subject,
         text: @text
-      return response.code
+      return response.code == 200
     rescue => e
       Rails.logger.error "Send via mailgun failed with params: #{@params}, at #{Time.now}"
-      return e.response.code
+      return false
     end
   end
 
@@ -54,10 +50,10 @@ This is your test content from Uber email service:
     }
     begin
       response = RestClient.post config['url'], params.to_json, :content_type => :json
-      return response.code
+      return response.code == 200
     rescue => e
       Rails.logger.error "Send via mandrill failed with params: #{@params}, at #{Time.now}"
-      return e.response.code
+      return false
     end
   end
 end
