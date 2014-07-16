@@ -18,14 +18,14 @@ This is your test content from Uber email service:
   end
 
   def deliver
-    return 200 if send_via_mailgun || send_via_mandrill
-    return 500
+    return true if send_via_mailgun || send_via_mandrill
+    return false
   end
 
   def send_via_mailgun
-    url = YAML::load(File.open("#{Rails.root}/config/mailgun.yml"))[Rails.env]['url']
+    config = MailgunConfig.config
     begin
-      response = RestClient.post url,
+      response = RestClient.post config[:url],
         from: @from,
         to: @to,
         subject: @subject,
@@ -38,9 +38,9 @@ This is your test content from Uber email service:
   end
 
   def send_via_mandrill
-    config = YAML::load(File.open("#{Rails.root}/config/mandrill.yml"))[Rails.env]
+    config = MandrillConfig.config
     params = {
-      key: config['api_key'],
+      key: config[:api_key],
       message: {
         text: @text,
         subject: @subject,
@@ -49,7 +49,7 @@ This is your test content from Uber email service:
       }
     }
     begin
-      response = RestClient.post config['url'], params.to_json, :content_type => :json
+      response = RestClient.post config[:url], params.to_json, :content_type => :json
       return response.code == 200
     rescue => e
       Rails.logger.error "Send via mandrill failed with params: #{@params}, at #{Time.now}"
