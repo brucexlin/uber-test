@@ -62,7 +62,7 @@ p.error {
 input[type="text"],input[type="email"]{
     width:98%;
     padding:15px 0px 15px 8px;
-    font: 13px Open sans-serif
+    font: 13px Open sans-serif;
     border-radius:5px;
     box-shadow:inset 4px 6px 10px -4px rgba(0,0,0,0.3), 0 1px 1px -1px rgba(255,255,255,0.3);
     background:rgba(0,0,0,0.2);
@@ -78,7 +78,7 @@ input[type="textarea"]{
     width:98%;
     padding:15px 0px 15px 8px;
     border-radius:5px;
-    font: 13px Open sans-serif
+    font: 13px Open sans-serif;
     box-shadow:inset 4px 6px 10px -4px rgba(0,0,0,0.3), 0 1px 1px -1px rgba(255,255,255,0.3);
     height: 100px;
     background:rgba(0,0,0,0.2);
