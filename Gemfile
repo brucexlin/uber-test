@@ -22,6 +22,11 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :test, :ci do
+  gem 'rspec'
+  gem 'rspec-rails'
+end
+
 group :development do
   gem 'sqlite3'
 end

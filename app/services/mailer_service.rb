@@ -32,8 +32,7 @@ This is your test content from Uber email service:
       Rails.logger.error e.message
       return false
     end
-    return true if send_via_mailgun || send_via_mandrill
-    return false
+    return send_via_mailgun || send_via_mandrill
   end
 
   def send_via_mailgun
