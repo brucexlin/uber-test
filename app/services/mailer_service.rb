@@ -3,6 +3,7 @@ require 'rest-client'
 class MailerService
   DEFAULT_FROM = 'support@uber.com'
   DEFAULT_SUBJECT = 'Test email from Uber'
+  EMAIL_REGEX = /\A\S+@.+\.\S+\z/
 
   def initialize(params)
     @params = params
@@ -10,14 +11,27 @@ class MailerService
     @name = params[:name]
     @to = params[:to]
     @subject = params[:subject] || DEFAULT_SUBJECT
-    @text = "Hi #{params[:name]},
+    @content = params[:content]
+    @text = "Hi #{@name},
 
 This is your test content from Uber email service:
 
-#{params[:content]}"
+#{@content}"
+  end
+
+  def validate_params
+    raise 'Email is missing' unless @to.present?
+    raise 'Content is missing' unless @content.present?
+    raise 'Email format is invalid' unless @to =~ EMAIL_REGEX
   end
 
   def deliver
+    begin
+      validate_params
+    rescue => e
+      Rails.logger.error e.message
+      return false
+    end
     return true if send_via_mailgun || send_via_mandrill
     return false
   end
